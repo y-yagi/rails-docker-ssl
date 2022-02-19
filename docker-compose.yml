@@ -1,0 +1,25 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./containers/app/Dockerfile
+      args:
+        RUBY_VERSION: "3.0.3"
+        BUNDLER_VERSION: "2.2.32"
+    tmpfs:
+      - /tmp
+    command: bundle exec puma -C config/puma.rb
+    volumes:
+      - bundle-data:/usr/local/bundle
+      - tmp-data:/sandbox/tmp
+      - log-data:/sandbox/log
+    tty: true
+    stdin_open: true
+    ports:
+      - "443:443"
+
+volumes:
+  tmp-data:
+  log-data:
+  bundle-data:

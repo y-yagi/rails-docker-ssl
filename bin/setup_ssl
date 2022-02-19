@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require "fileutils"
+
+system("mkcert sandbox.test", exception: true)
+
+FileUtils.mv "sandbox.test.pem", "config/sandbox.test.pem"
+FileUtils.mv "sandbox.test-key.pem", "config/sandbox.test-key.pem"
